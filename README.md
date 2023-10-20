@@ -21,11 +21,11 @@ You may also see any lint errors in the console.
 
 ### Run `npm install` from the /api directry
 
-It installes all the packages for the frontend
+It installes all the packages for the backend
 
 ### Run `npm start` from the /api directry
 
-Runs the app on the localhost\
+Runs the backend on the localhost
 Open [http://localhost:8800](http://localhost:8800) to view it in your browser (althought you can only send post requests for this.
 
 The page will reload when you make changes.\
@@ -35,5 +35,5 @@ You may also see any lint errors in the console.
 
 **mongodb+srv://pizza:pizza@pizza.glf849h.mongodb.net/db-pizza-shop?retryWrites=true&w=majority**
 
-If you want to look at the results
+If you want to look at the database just use this link to connect through Compass etc.
 
