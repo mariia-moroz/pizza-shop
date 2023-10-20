@@ -1,0 +1,17 @@
+[
+  {
+    "size": "Small",
+    "price": 6.99,
+    "toppings_included": 2
+  },
+  {
+    "size": "Medium",
+    "price": 8.99,
+    "toppings_included": 3
+  },
+  {
+    "size": "Large",
+    "price": 11.99,
+    "toppings_included": 5
+  }
+]

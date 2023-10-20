@@ -1,0 +1,26 @@
+.ingredient {
+  cursor: pointer;
+  width: 120px;
+  min-height: 120px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.name {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.selected {
+  outline: solid 2px #f59256;
+}
