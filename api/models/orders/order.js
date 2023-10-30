@@ -21,6 +21,7 @@ const orderSchema = new Schema({
   status: {
     type: String,
     enum: ["received", "cooking", "out for delivery", "delivered"],
+    default: "received",
   },
 });
 

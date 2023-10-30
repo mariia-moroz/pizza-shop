@@ -1,13 +1,7 @@
 import PizzaImg from "../../images/pizza-size.png";
 import s from "./SizeCard.module.css";
 
-const SizeCard = ({
-  option,
-  pizzaSize,
-  setPizzaSize,
-  setStandartPrice,
-  setPizzaToppingsIncluded,
-}) => {
+const SizeCard = ({ option, index, pizzaSize, setPizzaSize }) => {
   const { size, price, toppings_included } = option;
 
   const calculateSize = () => {
@@ -23,12 +17,6 @@ const SizeCard = ({
     }
   };
 
-  const onSelectSize = () => {
-    setPizzaSize(size);
-    setStandartPrice(price);
-    setPizzaToppingsIncluded(toppings_included);
-  };
-
   return (
     <li id={size} className={s.item}>
       <img src={PizzaImg} alt={size} width={calculateSize()} />
@@ -39,10 +27,10 @@ const SizeCard = ({
         <p>{toppings_included} toppings included</p>
         <button
           type='button'
-          className={`${s.button} ${pizzaSize === size && s.selected}`}
-          onClick={onSelectSize}
+          className={`${s.button} ${index === pizzaSize && s.selected}`}
+          onClick={() => setPizzaSize(index)}
         >
-          {pizzaSize === size ? "Selected" : "Select"}
+          {index === pizzaSize ? "Selected" : "Select"}
         </button>
       </div>
     </li>

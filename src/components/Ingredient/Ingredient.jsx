@@ -1,4 +1,3 @@
-import { useState } from "react";
 import s from "./Ingredient.module.css";
 
 const Ingredient = ({ ingredient, ToggleCheckbox, pizzaIngredients }) => {
@@ -16,7 +15,7 @@ const Ingredient = ({ ingredient, ToggleCheckbox, pizzaIngredients }) => {
         checked={isChecked}
         onChange={e => ToggleCheckbox(e)}
       />
-      <label htmlFor={name}>
+      <label htmlFor={name} className={s.label}>
         <img src={image} alt={name} height={50} />
         <p className={s.name}>{name}</p>
       </label>

@@ -16,29 +16,30 @@ const OrderModal = ({
   update = false,
   index = 0,
 }) => {
-  const [pizzaSize, setPizzaSize] = useState("");
-  const [standartPrice, setStandartPrice] = useState(0);
-  const [pizzaToppingsIncluded, setPizzaToppingsIncluded] = useState(0);
+  const [pizzaSize, setPizzaSize] = useState(0);
   const [pizzaIngredients, setPizzaIngredients] = useState([]);
   const [pizzaPrice, setPizzaPrice] = useState(0);
 
   const { cartItems, setCartItems } = useCart();
 
   useEffect(() => {
-    let price = standartPrice;
-
-    if (pizzaIngredients.length > pizzaToppingsIncluded) {
-      price +=
-        (pizzaIngredients.length - pizzaToppingsIncluded) * extraToppingValue;
+    if (!isModalOpen) {
+      setPizzaSize(0);
+      setPizzaIngredients([]);
+      setPizzaPrice(0);
+      return;
     }
 
-    setPizzaPrice(price);
-  }, [
-    pizzaIngredients.length,
-    pizzaPrice,
-    pizzaToppingsIncluded,
-    standartPrice,
-  ]);
+    const selectedSize = options[pizzaSize];
+    const { price, toppings_included } = selectedSize;
+    let currentPrice = price;
+
+    if (pizzaIngredients.length > toppings_included) {
+      currentPrice +=
+        (pizzaIngredients.length - toppings_included) * extraToppingValue;
+    }
+    setPizzaPrice(Number(currentPrice.toFixed(2)));
+  }, [isModalOpen, pizzaIngredients.length, pizzaSize]);
 
   const ToggleCheckbox = e => {
     const value = e.target.value;
@@ -50,7 +51,7 @@ const OrderModal = ({
   };
 
   const onSubmitModal = () => {
-    if (pizzaSize === 0 || pizzaIngredients.length === 0) {
+    if (pizzaIngredients.length === 0) {
       toast.error("Please select all options");
       return;
     }
@@ -58,7 +59,7 @@ const OrderModal = ({
     if (update) {
       const newCartItems = [...cartItems];
       newCartItems[index] = {
-        size: pizzaSize,
+        size: options[pizzaSize].size,
         price: pizzaPrice,
         ingredients: pizzaIngredients,
       };
@@ -68,7 +69,7 @@ const OrderModal = ({
       setCartItems([
         ...cartItems,
         {
-          size: pizzaSize,
+          size: options[pizzaSize].size,
           price: pizzaPrice,
           ingredients: pizzaIngredients,
         },
@@ -77,16 +78,6 @@ const OrderModal = ({
     }
 
     toggleModal();
-
-    resetModal();
-  };
-
-  const resetModal = () => {
-    setPizzaSize("");
-    setStandartPrice(0);
-    setPizzaToppingsIncluded(0);
-    setPizzaIngredients([]);
-    setPizzaPrice(0);
   };
 
   return (
@@ -101,8 +92,6 @@ const OrderModal = ({
           pizzaSize={pizzaSize}
           options={options}
           setPizzaSize={setPizzaSize}
-          setStandartPrice={setStandartPrice}
-          setPizzaToppingsIncluded={setPizzaToppingsIncluded}
         />
         <p className={s.subHeader}>Click to select toppings:</p>
         <p>Extra toppings: £1.49 per topping</p>

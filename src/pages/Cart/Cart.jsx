@@ -20,6 +20,10 @@ const Cart = ({ confirmation, setConfirmation, ...props }) => {
 
   const onSubmit = async e => {
     try {
+      if (cartItems.length === 0) {
+        toast.error("Please, add items to cart first");
+        return;
+      }
       const response = await axios({
         method: "post",
         url: "http://localhost:8800/api/orders",
@@ -40,6 +44,7 @@ const Cart = ({ confirmation, setConfirmation, ...props }) => {
         },
         key
       );
+      setCartItems([]);
       navigate("/confirmation");
     } catch (error) {
       toast.error("Something went wrong :(");
@@ -92,18 +97,3 @@ const Cart = ({ confirmation, setConfirmation, ...props }) => {
 };
 
 export default Cart;
-
-// const useLocalStorage = (key, defaultValue) => {
-//   const [state, setState] = useState(() => {
-//     return JSON.parse(window.localStorage.getItem(key)) ?? defaultValue;
-//   });
-
-//   useEffect(() => {
-//     window.localStorage.setItem(key, JSON.stringify(state));
-//   }, [key, state]);
-
-//   return [state, setState];
-// };
-
-// const [cartItems, setCartItems] = useLocalStorage("cartItems", []);
-// const [totalPrice, setTotalPrice] = useLocalStorage("cartItems", 0);
